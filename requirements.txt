@@ -2,3 +2,9 @@ pygame
 python3
 #dictionary to check if words exist
 enchant
+#dictionary to generate the word of the day
+RandomWords
+
+'''Intructions on how to solve issues I encountered with enchant can be found here:
+https://pyenchant.github.io/pyenchant/install.html
+'''

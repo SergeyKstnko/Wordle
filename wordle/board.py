@@ -3,8 +3,8 @@ Function I'm planning to implement:
 * drawing squares
 * creating 2D array fo squares'''
 
-import pygame
-import enchant
+import pygame, enchant
+from random_words import RandomWords
 
 from .constants import BLACK, COLS, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE, GREY
 from .square import Square
@@ -12,7 +12,8 @@ from .square import Square
 class Board:
     def __init__(self):
         self.board = [[]]
-        self.secret_word = "tipsy".upper()
+        self.secret_word = self.pick_word_of_the_day()
+        print(self.secret_word)
         self.attempt = 0
         #between 0 and 4
         self.letter_count = 0
@@ -24,6 +25,13 @@ class Board:
             self.board.append([])
             for c in range(COLS):
                 self.board[r].append(Square())
+
+    def pick_word_of_the_day(self):
+        rw = RandomWords()
+        word = rw.random_word()
+        while len(word) != 5:
+            word = rw.random_word()
+        return word.upper()
 
     def draw_squares(self, game_window):
         '''Draw squares and letters on the game window'''
