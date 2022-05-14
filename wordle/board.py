@@ -4,19 +4,20 @@ Function I'm planning to implement:
 * creating 2D array fo squares'''
 
 import pygame
-from .constants import COLS, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE, GREY
+import enchant
+
+from .constants import BLACK, COLS, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE, GREY
 from .square import Square
 
 class Board:
     def __init__(self):
         self.board = [[]]
-        #[[Square()]*COLS]*ROWS
         self.secret_word = "tipsy".upper()
         self.attempt = 0
         #between 0 and 4
         self.letter_count = 0
-        #self.input_word = ""
         self.initialize_board()
+        self.my_dict = enchant.Dict("en_US")
 
     def initialize_board(self):
         for r in range(ROWS):
@@ -26,7 +27,6 @@ class Board:
 
     def draw_squares(self, game_window):
         '''Draw squares and letters on the game window'''
-        
         
         game_window.fill(WHITE)
         font = pygame.font.SysFont("comicsans", 50)
@@ -57,17 +57,30 @@ class Board:
             
 
     def enter_word(self):
+        '''
+        To implement::  declare victory
+        '''
         if self.letter_count < COLS:
             return
-
+        #number of letters that are correct in entered word. 
+        #Used to stop the game if solution is found in less than 6 attempts
+        letters_correct = 0
         #check if word exists. Return if there is no such word
+            #get the word
+        word = ""
+        for i in range(COLS):
+            word += self.board[self.attempt][i].letter
+        if not self.my_dict.check(word):
+            return
 
+            
         #make changes to background and letter colors
         for i in range(COLS):
             #if letter in secret_word and in correct position
             sq = self.board[self.attempt][i]
             if sq.letter in self.secret_word and sq.letter == self.secret_word[i]:
                 sq.both_correct()
+                letters_correct += 1
             #if letter is in secret word and possition is not correct
             elif sq.letter in self.secret_word and sq.letter != self.secret_word[i]:
                 sq.correct_letter_only()
@@ -75,21 +88,8 @@ class Board:
             else:
                 sq.letter_not_in()
         
-        
         #move to the next line if not correct
         self.letter_count = 0
-        self.attempt += 1
+        self.attempt = ROWS if letters_correct == COLS else (self.attempt + 1)
 
-        #declare victory
-
-
-
-
-    #not used
-    def draw_letters(self):
-        for word in self.board:
-            for i, letter in enumerate(word):
-                #if letter in secret_word and correct location
-                if letter in self.secret_word and letter == self.board[i]:
-                    pass
-                    #draw squares green
+        

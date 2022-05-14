@@ -11,8 +11,6 @@ class Square:
         self.back_color = GREY
         self.letter_color = BLACK
         self.thickness = 3
-        #1 - letters can be entered, 0 - not
-        # self.active = 0
 
     def update_letter(self, letter):
         self.letter = letter
