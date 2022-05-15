@@ -6,7 +6,7 @@ Function I'm planning to implement:
 import pygame, enchant
 from random_words import RandomWords
 
-from .constants import BLACK, COLS, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE, GREY
+from .constants import COLS, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE
 from .square import Square
 
 class Board:
@@ -18,13 +18,19 @@ class Board:
         #between 0 and 4
         self.letter_count = 0
         self.initialize_board()
+
         self.my_dict = enchant.Dict("en_US")
+        self.file = open("dictionaries/dictionary.txt", "r+")
+        self.dict = [x.split() for x in self.file]
 
     def initialize_board(self):
         for r in range(ROWS):
             self.board.append([])
             for c in range(COLS):
                 self.board[r].append(Square())
+    
+    def get_attempt(self):
+        return self.attempt
 
     def pick_word_of_the_day(self):
         rw = RandomWords()
@@ -100,4 +106,13 @@ class Board:
         self.letter_count = 0
         self.attempt = ROWS if letters_correct == COLS else (self.attempt + 1)
 
-        
+    def suggest_a_word(self):
+        '''this function will pick the most popular word from the list'''
+        pass
+
+
+    def narrow_down_words(self, conditions):
+        '''this function will create a dictionary of narrowed down words
+        param:: conditions'''
+        #self.temp_dict = [x for x im self.dict if all(conditions)]
+        pass

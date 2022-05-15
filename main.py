@@ -2,6 +2,7 @@ import pygame
 
 from wordle.constants import HEIGHT, WIDTH
 from wordle.board import Board
+from wordle.solver import Solver
 
 
 #provides refresh rate for the 
@@ -19,6 +20,7 @@ def main():
     clock = pygame.time.Clock()
     run = True
     board = Board()
+    solver = Solver(board)
 
     while run:
         clock.tick(FPS)
@@ -34,6 +36,8 @@ def main():
                     board.delete_letter()
                 elif event.key == pygame.K_RETURN:
                     board.enter_word()
+                elif event.key == pygame.K_SPACE:
+                    solver.make_suggestion()
 
 
 
