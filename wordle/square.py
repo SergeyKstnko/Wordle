@@ -30,4 +30,10 @@ class Square:
         self.letter_color = WHITE
         self.thickness = 0
 
+    def get_back_color(self) -> str:
+        return self.back_color
+
+    def get_letter(self) -> str:
+        return self.letter
+
 

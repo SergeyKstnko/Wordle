@@ -38,6 +38,7 @@ def main():
                     board.enter_word()
                 elif event.key == pygame.K_SPACE:
                     solver.make_suggestion()
+                    solver.build_regex()
 
 
 
