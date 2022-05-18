@@ -22,7 +22,7 @@ TODO: * Pick second guess opposite of the first guess
 import pygame, random
 import re
 
-from .constants import COLS, DICT_ADDRESS, GREEN, GREY, ROWS, YELLOW
+from .constants import BLACK, COLS, DICT_ADDRESS, GREEN, GREY, ROWS, SOLVER_X, SOLVER_Y, SQUARE_SIZE, YELLOW, WHITE
 
 class Solver:
     def __init__(self, board):
@@ -30,6 +30,8 @@ class Solver:
         self.surface = board.board
         self.regEx = ""
         self.word_list = self.get_list()
+        self.hinted_word = ""
+        self.hinted_alternative_word = ""
 
         #rules for sifting letters
         self.green_letters_pos = [""]*COLS
@@ -39,7 +41,7 @@ class Solver:
         self.words_tried_list = [""]*ROWS
         
     def get_list(self) -> str:
-        file = open("dictionaries/answers.txt", "r+")
+        file = open(DICT_ADDRESS, "r+")
         word_list = file.read().split()
         file.close()
         return word_list
@@ -111,23 +113,91 @@ class Solver:
 
 
     def pick_a_word(self) -> str:
-        #print(self.word_list)
-        print(random.choice(self.word_list).upper())
+        self.hinted_word = random.choice(self.word_list).upper()
+        self.hinted_alternative_word = self.hinted_word
+        while self.hinted_alternative_word == self.hinted_word and len(self.word_list) >= 2:
+            self.hinted_alternative_word = random.choice(self.word_list).upper()
+
         return random.choice(self.word_list).upper()
 
 
     def make_suggestion(self):
         '''This method will make suggestion based on attempt'''
         attempt = self.board.get_attempt()
+
+        if attempt >= ROWS:
+            return
         if attempt == 0:
-            print("Solver suggests ADIEU")
+            self.hinted_word = "ADIEU"
         elif attempt == 1:
-            print("Solver suggests TRYST")
+            self.hinted_word = "TRYST"
         else:
             self.build_sorting_rules()
             self.narrow_down_words()
             self.pick_a_word()
-            print("WORK IN PROGRESS")
+
+
+    def draw_hint(self, game_window):
+        font = pygame.font.SysFont("comicsans", 30)
+        alt_hint = pygame.font.SysFont("comicsans", 15)
+        font_strategy = pygame.font.SysFont("comicsans", 25)
+        attempt = self.board.get_attempt()
+        
+        txt_intro = font.render("Stuck? Press SPACE for a hint.", True, GREY) 
+        game_window.blit(txt_intro, (SOLVER_X, SOLVER_Y+10))
+
+        if not self.hinted_word:
+            tile_thickness = 2
+            tile_color = GREY
+        else:
+            tile_thickness = 0
+            tile_color = GREEN
+
+
+        for col in range(COLS):
+            next_tile_x = SOLVER_X+col*(SQUARE_SIZE/1.5+10)
+            next_tile_y = SOLVER_Y+43
+            #x,y, width, length
+            tile = pygame.Rect(next_tile_x, next_tile_y, SQUARE_SIZE/1.5, SQUARE_SIZE/1.5)
+            #window, color, object_to_draw, thickness
+            pygame.draw.rect(game_window, tile_color, tile, tile_thickness)
+
+            #If user didn't ask for hint
+            if self.hinted_word:
+                letter = self.hinted_word[col]
+                txt_surface = font.render(letter, True, WHITE) 
+                indent = 18 if letter == "I" else 13
+                game_window.blit(txt_surface, (next_tile_x+indent, next_tile_y+12))
+
+        
+        if attempt:
+            alt_hint_text = "You may also try: " + self.hinted_alternative_word
+            txt_strategy = alt_hint.render(alt_hint_text, True, GREY)
+            game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+96))
+
+        text = ""
+        text_2 = ""
+        if self.hinted_word:
+            if attempt == 0:
+                text = "One strategy suggests to pick the first word that has the most vowels."
+            elif attempt == 1:
+                text = "The second pick should contain letters used in the first try."
+            else:
+                text = "For 3rd attempt and further, computer actually analizes information"
+                text_2 = "received from previous tries and gives you a word that fits those criteria."
+        
+        
+        txt_strategy = font_strategy.render(text, True, GREY)
+        game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+110))
+        if text_2:
+            txt_strategy = font_strategy.render(text_2, True, GREY)
+            game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+126))
+    
+        
+
+
+
+
 
 
 
@@ -141,7 +211,6 @@ class Solver:
         f = open("dictionaries/sorted.txt", "w")
         f.write(str(self.dict))
         f.close()
-
 
 
     def build_regex(self):

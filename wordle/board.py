@@ -6,7 +6,7 @@ TODO: * Handling repeating letters
 import pygame, enchant, random
 #from random_words import RandomWords
 
-from .constants import COLS, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE
+from .constants import COLS, DICT_ADDRESS, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE
 from .square import Square
 
 class Board:
@@ -31,7 +31,7 @@ class Board:
         return self.attempt
 
     def pick_word_of_the_day(self):
-        f = open('dictionaries/answers.txt')
+        f = open(DICT_ADDRESS)
         words = f.read().split('\n')
         a = random.randint(0, len(words))
         return words[a].upper()
@@ -47,7 +47,7 @@ class Board:
     def draw_squares(self, game_window):
         '''Draw squares and letters on the game window'''
         
-        game_window.fill(WHITE)
+        #game_window.fill(WHITE)
         font = pygame.font.SysFont("comicsans", 50)
 
         #Draw squares and letters

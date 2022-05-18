@@ -7,7 +7,7 @@ TODO: * Add Keyboard
 
 import pygame
 
-from wordle.constants import HEIGHT, WIDTH
+from wordle.constants import HEIGHT, SQUARES_X, SQUARES_Y, WHITE, WIDTH, BLACK, MIDDLE
 from wordle.board import Board
 from wordle.solver import Solver
 
@@ -48,8 +48,16 @@ def main():
 
 
 
-        game_window.fill((255,255,255))
+        game_window.fill(WHITE)
+        
+        #HEADER
+        font_wordle = pygame.font.SysFont("comicsans", 60)
+        txt_surface = font_wordle.render("Wordle", True, BLACK) 
+        game_window.blit(txt_surface, (MIDDLE-75, 20))
+        pygame.draw.line(game_window, BLACK, (0,65), (WIDTH,65), width=2)
+
         board.draw_squares(game_window)
+        solver.draw_hint(game_window)
 
 
         pygame.display.update()
