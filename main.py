@@ -1,3 +1,10 @@
+'''GUI for Wordle game
+
+TODO: * Add Keyboard
+* Add Suggestions/Hints
+* Add Definitions at request'''
+
+
 import pygame
 
 from wordle.constants import HEIGHT, WIDTH

@@ -1,6 +1,5 @@
 #here I will define constants in one place
 
-import pygame
 
 WIDTH, HEIGHT = 800, 800
 ROWS, COLS = 6,5

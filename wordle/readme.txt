@@ -15,6 +15,9 @@ Tech functionality:
 
 
 To implement (in the order of importance):
+* Add Keyboard
+* Add GUI for Suggestions/Hints
+* Use better dictionaries
 * Potentially connecting to API of a dictionary
+to get definitions
 * Keyboard
-* helping pick the next word

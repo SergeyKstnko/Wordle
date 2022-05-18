@@ -1,7 +1,7 @@
 '''This class will handle "board" for Wordle.
-Function I'm planning to implement:
-* drawing squares
-* creating 2D array fo squares'''
+
+TODO: * Handling repeating letters
+*Update dictionaries I use'''
 
 import pygame, enchant, random
 #from random_words import RandomWords
@@ -31,15 +31,18 @@ class Board:
         return self.attempt
 
     def pick_word_of_the_day(self):
+        f = open('dictionaries/answers.txt')
+        words = f.read().split('\n')
+        a = random.randint(0, len(words))
+        return words[a].upper()
+        #return "FLUFF"
+        #return "BLUFF" #FLUFF
+        #return "STEAL" #THESE
         '''Old implementation
         rw = RandomWords()
         word = rw.random_word()
         while len(word) != 5:
             word = rw.random_word()'''
-        f = open('dictionaries/answers.txt')
-        words = f.read().split('\n')
-        a = random.randint(0, len(words))
-        return words[a].upper()
 
     def draw_squares(self, game_window):
         '''Draw squares and letters on the game window'''
@@ -95,26 +98,15 @@ class Board:
             #if letter in secret_word and in correct position
             sq = self.board[self.attempt][i]
             if sq.letter in self.secret_word and sq.letter == self.secret_word[i]:
-                sq.both_correct()
+                sq.correct_position()
                 letters_correct += 1
             #if letter is in secret word and possition is not correct
             elif sq.letter in self.secret_word and sq.letter != self.secret_word[i]:
-                sq.correct_letter_only()
+                sq.wrong_position()
             #if letter is not in the word
             else:
-                sq.letter_not_in()
+                sq.wrong_letter()
         
         #move to the next line if not correct
         self.letter_count = 0
         self.attempt = ROWS if letters_correct == COLS else (self.attempt + 1)
-
-    def suggest_a_word(self):
-        '''this function will pick the most popular word from the list'''
-        pass
-
-
-    def narrow_down_words(self, conditions):
-        '''this function will create a dictionary of narrowed down words
-        param:: conditions'''
-        #self.temp_dict = [x for x im self.dict if all(conditions)]
-        pass

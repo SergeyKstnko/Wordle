@@ -15,17 +15,17 @@ class Square:
     def update_letter(self, letter):
         self.letter = letter
 
-    def both_correct(self):
+    def correct_position(self):
         self.back_color = GREEN
         self.letter_color = WHITE
         self.thickness = 0
 
-    def correct_letter_only(self):
+    def wrong_position(self):
         self.back_color = YELLOW
         self.letter_color = WHITE
         self.thickness = 0
 
-    def letter_not_in(self):
+    def wrong_letter(self):
         self.back_color = GREY
         self.letter_color = WHITE
         self.thickness = 0
