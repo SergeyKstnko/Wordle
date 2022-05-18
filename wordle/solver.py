@@ -14,19 +14,77 @@ The idea two pick two opposite words with the most vowels is from here
 https://www.nytimes.com/2022/02/10/crosswords/best-wordle-tips.html'''
 
 import pygame
+import re
 
-from .constants import COLS, GREEN, GREY, ROWS
+from .constants import COLS, DICT_ADDRESS, GREEN, GREY, ROWS
 
 class Solver:
     def __init__(self, board):
         self.board = board
         self.surface = board.board
         self.regEx = ""
+        self.word_list = self.get_list()
+        
+    def get_list(self) -> str:
+        file = open("dictionaries/answers.txt", "r+")
+        word_list = file.read().split()
+        file.close()
+        return word_list
 
-    def print(self):
-        print("Solver things attempt is: " + str(self.board.get_attempt()))
+    def collect_information(self):
+        '''This function collects information from user'''
+        attempt = self.board.get_attempt()
+        word_list_temp = []
+        green_letters_pos = [""]*COLS
+        yellow_letters_pos = [""]*COLS
+        grey_letters = ""
+        yellow_letters = ""
+        
+        for row in range(attempt):
+            for col in range(COLS):
+                #If word does not contain green letters -> skip
+
+
+        self.word_list = word_list_temp
+                pass
+
+
+        
+
+    def pick_guess(self):
+        pass
+
+    def make_suggestion(self):
+
+        '''This method will make suggestion based on attempt'''
+        attempt = self.board.get_attempt()
+        if attempt == 0:
+            print("Solver suggests ADIEU")
+        elif attempt == 1:
+            print("Solver suggests TRYST")
+        else:
+            self.build_regex()
+            self.sort_dictionary()
+            print(self.dict)
+            print(self.regEx)
+            print("WORK IN PROGRESS")
+
+
+### The rest of functions were depreciated
+
+    def sort_dictionary_withRegEx(self):
+        p = re.compile(self.regEx)
+        self.dict = p.findall(self.dict)
+        print(self.dict)
+        self.dict = str(self.dict)
+        f = open("dictionaries/sorted.txt", "w")
+        f.write(str(self.dict))
+        f.close()
+
+
 
     def build_regex(self):
+        '''This fucntion was retired.'''
         attempt = self.board.get_attempt()
         #what do I know about the word?
         word = ""
@@ -60,37 +118,15 @@ class Solver:
                     if curr_letter not in wrong_pos_letters[col]:
                         wrong_pos_letters[col] += curr_letter
 
-        #print(str(permanent_letters) + "Perm letters")
-        #print(str(wrong_pos_letters) + "Wrong pos let")
-
         self.regEx = word
         for i in range(COLS):
             if permanent_letters[i]:
                 self.regEx += permanent_letters[i]
             elif wrong_pos_letters[i]:
-                self.regEx += '[^' + wrong_pos_letters[i] + ']'
+                self.regEx += '[a-z^' + wrong_pos_letters[i] + ']'
             else:
                 self.regEx += '[a-z]'
-        self.regEx += "\s\d+"
-        
-        print(self.regEx)
-        
-
-    def sort_dictionary(self):
-        pass
-
-    def pick_guess(self):
-        pass
+        #self.regEx += '\s'
+        #self.regEx += "\s\d+"
 
 
-    def make_suggestion(self):
-        '''This method will make suggestion based on attempt'''
-        attempt = self.board.get_attempt()
-        if attempt == 0:
-            print("Solver suggests ADIEU")
-        elif attempt == 1:
-            print("Solver suggests TRYST")
-        else:
-            print("WORK IN PROGRESS")
-
-        self.print()

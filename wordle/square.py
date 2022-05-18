@@ -1,7 +1,7 @@
 '''This class will represent states of squares
 where user will input words'''
 
-from .constants import GREEN, GREY, BLACK, ORANGE, WHITE
+from .constants import GREEN, GREY, BLACK, YELLOW, WHITE
 
 
 class Square:
@@ -21,7 +21,7 @@ class Square:
         self.thickness = 0
 
     def correct_letter_only(self):
-        self.back_color = ORANGE
+        self.back_color = YELLOW
         self.letter_color = WHITE
         self.thickness = 0
 

@@ -11,6 +11,7 @@ Tech functionality:
 * implemented packages and modules for the first time
 * Object Oriented Programming
 * GUI via pygame
+* Regular Expressions
 
 
 To implement (in the order of importance):

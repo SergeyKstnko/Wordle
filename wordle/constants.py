@@ -15,4 +15,7 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 GREY = (120,124,126)
 GREEN = (106,170,100)
-ORANGE = (201,180,88)
+YELLOW = (201,180,88)
+
+
+DICT_ADDRESS = "/dictionaries/dictionary.txt"
