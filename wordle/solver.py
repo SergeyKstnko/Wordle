@@ -128,7 +128,7 @@ class Solver:
         if attempt >= ROWS:
             return
         if attempt == 0:
-            self.hinted_word = "ADIEU"
+            self.hinted_word = "GAYER"
         elif attempt == 1:
             self.hinted_word = "TRYST"
         else:

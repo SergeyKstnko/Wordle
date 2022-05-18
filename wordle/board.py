@@ -12,13 +12,14 @@ from .square import Square
 class Board:
     def __init__(self):
         self.board = [[]]
-        self.secret_word = self.pick_word_of_the_day()
+        self.secret_word, self.my_dict = self.pick_word_of_the_day()
+        print(self.my_dict)
         print(self.secret_word)
         self.attempt = 0
         #between 0 and 4
         self.letter_count = 0
         self.initialize_board()
-        self.my_dict = enchant.Dict("en_US")
+        #self.my_dict = enchant.Dict("en_US")
         
 
     def initialize_board(self):
@@ -32,9 +33,9 @@ class Board:
 
     def pick_word_of_the_day(self):
         f = open(DICT_ADDRESS)
-        words = f.read().split('\n')
+        words = f.read().split()
         a = random.randint(0, len(words))
-        return words[a].upper()
+        return words[a].upper(), words
         #return "FLUFF"
         #return "BLUFF" #FLUFF
         #return "STEAL" #THESE
@@ -89,8 +90,12 @@ class Board:
         word = ""
         for i in range(COLS):
             word += self.board[self.attempt][i].letter
-        if not self.my_dict.check(word):
+        
+        word = word.lower()
+        if word not in self.my_dict:
             return
+        #if not self.my_dict.check(word):
+        #    return
 
             
         #make changes to background and letter colors
