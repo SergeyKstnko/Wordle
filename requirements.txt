@@ -1,5 +1,7 @@
 pygame
-python3
+python3 '''https://ukdevguy.com/how-to-install-pygame-in-2019/'''
+
+#Libraries below are not used anymore
 #dictionary to check if words exist
 enchant
 #dictionary to generate the word of the day

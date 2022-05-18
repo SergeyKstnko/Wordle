@@ -3,7 +3,8 @@
 TODO: * Handling repeating letters
 *Update dictionaries I use'''
 
-import pygame, enchant, random
+import pygame, random
+#import enchant
 #from random_words import RandomWords
 
 from .constants import COLS, DICT_ADDRESS, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE
