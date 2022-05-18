@@ -10,12 +10,16 @@ Functionality (among others):
 
 Tech functionality:
 * implemented packages and modules for the first time
+* Easily scalable
 * Object Oriented Programming
 * GUI via pygame
+* Developed game itself and its Solver
 * Regular Expressions
 
 
 To implement (in the order of importance and interest):
+* Discover resolution of the screen
+* If word is not in the dictionary
 * Add GUI for Suggestions/Hints
 * Suggest second guess opposite of the first one
 * Update documentation

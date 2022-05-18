@@ -5,6 +5,12 @@ TODO: * Add Keyboard
 * Add Definitions at request'''
 
 
+import ctypes, os
+
+if os.name == 'nt':
+    ctypes.windll.user32.SetProcessDPIAware()
+
+
 import pygame
 
 from wordle.constants import HEIGHT, SQUARES_X, SQUARES_Y, WHITE, WIDTH, BLACK, MIDDLE
