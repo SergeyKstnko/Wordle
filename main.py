@@ -23,8 +23,8 @@ FPS = 60
 
 pygame.init()
 
-game_window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.SCALED)
-
+game_window = pygame.display.set_mode((WIDTH, HEIGHT))
+#, pygame.SCALED
 
 pygame.display.set_caption("Wordle")
 
@@ -57,9 +57,9 @@ def main():
         game_window.fill(WHITE)
         
         #HEADER
-        font_wordle = pygame.font.SysFont("comicsans", 60)
+        font_wordle = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 50)
         txt_surface = font_wordle.render("Wordle", True, BLACK) 
-        game_window.blit(txt_surface, (MIDDLE-75, 20))
+        game_window.blit(txt_surface, (MIDDLE-90, 0))
         pygame.draw.line(game_window, BLACK, (0,65), (WIDTH,65), width=2)
 
         board.draw_squares(game_window)

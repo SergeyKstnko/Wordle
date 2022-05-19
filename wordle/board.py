@@ -49,8 +49,7 @@ class Board:
     def draw_squares(self, game_window):
         '''Draw squares and letters on the game window'''
         
-        #game_window.fill(WHITE)
-        font = pygame.font.SysFont("comicsans", 50)
+        font = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 40)
 
         #Draw squares and letters
         for row in range(ROWS):
@@ -62,8 +61,16 @@ class Board:
                 pygame.draw.rect(game_window, sq.back_color, rect, sq.thickness)
                 
                 txt_surface = font.render(sq.letter, True, sq.letter_color) 
-                indent = 25 if sq.letter == "I" else 18
-                game_window.blit(txt_surface, (next_square_x+indent, next_square_y+15))
+                if sq.letter in ["J", "I",]:
+                    indent = 21
+                elif sq.letter == "W":
+                    indent = 11
+                elif sq.letter in ["E","L","Y"]:
+                    indent = 18
+                else:
+                    indent = 15
+                #indent = 20 if sq.letter in ["J", "I"] else 15
+                game_window.blit(txt_surface, (next_square_x+indent, next_square_y+5))
 
     def update_letter(self, letter):
         if self.letter_count < COLS and self.attempt < ROWS:

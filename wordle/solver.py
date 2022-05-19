@@ -138,9 +138,9 @@ class Solver:
 
 
     def draw_hint(self, game_window):
-        font = pygame.font.SysFont("comicsans", 30)
-        alt_hint = pygame.font.SysFont("comicsans", 15)
-        font_strategy = pygame.font.SysFont("comicsans", 25)
+        font = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 30)
+        alt_hint = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 15)
+        font_strategy = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 25)
         attempt = self.board.get_attempt()
         
         txt_intro = font.render("Stuck? Press SPACE for a hint.", True, GREY) 
