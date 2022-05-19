@@ -125,12 +125,17 @@ class Solver:
         '''This method will make suggestion based on attempt'''
         attempt = self.board.get_attempt()
 
+
         if attempt >= ROWS:
             return
         if attempt == 0:
-            self.hinted_word = "GAYER"
+            self.hinted_word = "QUEUE"
+            self.hinted_alternative_word = "GAYER"
+            #self.hinted_word = "WAACS"
         elif attempt == 1:
             self.hinted_word = "TRYST"
+            self.hinted_alternative_word = "QUASH"
+            #self.hinted_word = "ENEMA"
         else:
             self.build_sorting_rules()
             self.narrow_down_words()
@@ -138,13 +143,13 @@ class Solver:
 
 
     def draw_hint(self, game_window):
-        font = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 30)
-        alt_hint = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 15)
-        font_strategy = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 25)
+        stuck_font = pygame.font.SysFont("fonts/NotoSans-ExtraBold.ttf", 30)
+        hint_font = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 30)
+        strategy_font = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 15)
         attempt = self.board.get_attempt()
         
-        txt_intro = font.render("Stuck? Press SPACE for a hint.", True, GREY) 
-        game_window.blit(txt_intro, (SOLVER_X, SOLVER_Y+10))
+        stuck_prompt = stuck_font.render("Stuck? Press SPACE for a hint.", True, GREY) 
+        game_window.blit(stuck_prompt, (SOLVER_X, SOLVER_Y+20))
 
         if not self.hinted_word:
             tile_thickness = 2
@@ -165,33 +170,52 @@ class Solver:
             #If user didn't ask for hint
             if self.hinted_word:
                 letter = self.hinted_word[col]
-                txt_surface = font.render(letter, True, WHITE) 
-                indent = 18 if letter == "I" else 13
-                game_window.blit(txt_surface, (next_tile_x+indent, next_tile_y+12))
+                txt_surface = hint_font.render(letter, True, WHITE) 
+                if letter in ["J", "I",]:
+                    indent = 15
+                elif letter in ["E","L","Y"]:
+                    indent = 12
+                elif letter == ["W","M"]:
+                    indent = 0
+                else:
+                    indent = 10
+                game_window.blit(txt_surface, (next_tile_x+indent, next_tile_y))
 
         
         if attempt:
             alt_hint_text = "You may also try: " + self.hinted_alternative_word
-            txt_strategy = alt_hint.render(alt_hint_text, True, GREY)
-            game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+96))
+            txt_strategy = strategy_font.render(alt_hint_text, True, GREY)
+            game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+83))
 
         text = ""
         text_2 = ""
+        text_3 = ""
+        text_4 = ""
         if self.hinted_word:
             if attempt == 0:
-                text = "One strategy suggests to pick the first word that has the most vowels."
+                text = "One strategy suggests to pick the first"
+                text_2 = "word that has the most vowels."
             elif attempt == 1:
-                text = "The second pick should contain letters used in the first try."
+                text = "The second pick should contain letters"
+                text_2 = "used in the first try."
             else:
-                text = "For 3rd attempt and further, computer actually analizes information"
-                text_2 = "received from previous tries and gives you a word that fits those criteria."
+                text = "For 3rd attempt and further, computer"
+                text_2 = "actually analizes information received"
+                text_3 = "from previous tries and gives you a word"
+                text_4 = "that fits those criteria."
         
         
-        txt_strategy = font_strategy.render(text, True, GREY)
+        txt_strategy = strategy_font.render(text, True, GREY)
         game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+110))
         if text_2:
-            txt_strategy = font_strategy.render(text_2, True, GREY)
+            txt_strategy = strategy_font.render(text_2, True, GREY)
             game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+126))
+        if text_3:
+            txt_strategy = strategy_font.render(text_3, True, GREY)
+            game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+142))
+        if text_4:
+            txt_strategy = strategy_font.render(text_4, True, GREY)
+            game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+158))
     
         
 

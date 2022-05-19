@@ -64,6 +64,7 @@ def main():
 
         board.draw_squares(game_window)
         solver.draw_hint(game_window)
+        board.display_warning(game_window)
 
 
         pygame.display.update()

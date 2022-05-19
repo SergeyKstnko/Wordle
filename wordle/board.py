@@ -7,7 +7,7 @@ import pygame, random
 #import enchant
 #from random_words import RandomWords
 
-from .constants import COLS, DICT_ADDRESS, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE
+from .constants import BLACK, COLS, DICT_ADDRESS, MIDDLE, ROWS, SQUARES_X, SQUARES_Y, WHITE, SQUARE_SIZE
 from .square import Square
 
 class Board:
@@ -21,6 +21,8 @@ class Board:
         self.letter_count = 0
         self.initialize_board()
         #self.my_dict = enchant.Dict("en_US")
+        self.warning = ""
+        self.warning_duration = 0
         
 
     def initialize_board(self):
@@ -31,6 +33,13 @@ class Board:
     
     def get_attempt(self):
         return self.attempt
+
+    def get_warning(self) -> str:
+        return self.warning
+    
+    def get_warning_duration(self) -> int:
+        return self.warning_duration
+
 
     def pick_word_of_the_day(self):
         f = open(DICT_ADDRESS)
@@ -65,12 +74,27 @@ class Board:
                     indent = 21
                 elif sq.letter == "W":
                     indent = 11
-                elif sq.letter in ["E","L","Y"]:
-                    indent = 18
+                elif sq.letter in ["H", "M"]:
+                    indent = 16
                 else:
-                    indent = 15
+                    indent = 18
                 #indent = 20 if sq.letter in ["J", "I"] else 15
                 game_window.blit(txt_surface, (next_square_x+indent, next_square_y+5))
+
+    def display_warning(self, game_window):
+        #Display Not in list/Not enough letters message
+        if self.warning and self.warning_duration >= pygame.time.get_ticks():
+
+            rect_x, rect_y = MIDDLE-120, SQUARES_Y+450
+            rect = pygame.Rect(rect_x, rect_y, 250, 35)
+            pygame.draw.rect(game_window, BLACK, rect, 0)
+
+            warning_font = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 20)
+            warning = warning_font.render(self.warning, True, WHITE)
+
+            indent = 50 if self.warning == "Not in word list" else 30
+            game_window.blit(warning, (rect_x+indent, rect_y+2))
+
 
     def update_letter(self, letter):
         if self.letter_count < COLS and self.attempt < ROWS:
@@ -84,11 +108,20 @@ class Board:
             self.board[self.attempt][self.letter_count].letter = ""
             
 
+    def change_warning(self, switch = 0):        
+        self.warning_duration = pygame.time.get_ticks() + 2000
+        if switch == 1:
+            self.warning = "Not enough letters"
+        else:
+            self.warning = "Not in word list"
+
+
     def enter_word(self):
         '''
         To implement::  declare victory
         '''
         if self.letter_count < COLS:
+            self.change_warning(1)
             return
         #number of letters that are correct in entered word. 
         #Used to stop the game if solution is found in less than 6 attempts
@@ -98,12 +131,10 @@ class Board:
         word = ""
         for i in range(COLS):
             word += self.board[self.attempt][i].letter
-        
         word = word.lower()
         if word not in self.my_dict:
+            self.change_warning(0)
             return
-        #if not self.my_dict.check(word):
-        #    return
 
             
         #make changes to background and letter colors
