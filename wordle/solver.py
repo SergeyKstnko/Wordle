@@ -39,7 +39,13 @@ class Solver:
         self.grey_letters = ""
         self.yellow_letters = ""
         self.words_tried_list = [""]*ROWS
+
+        self.text = ""
+        self.text_2 = ""
+        self.text_3 = ""
+        self.text_4 = ""
         
+
     def get_list(self) -> str:
         file = open(DICT_ADDRESS, "r+")
         word_list = file.read().split()
@@ -125,7 +131,6 @@ class Solver:
         '''This method will make suggestion based on attempt'''
         attempt = self.board.get_attempt()
 
-
         if attempt >= ROWS:
             return
         if attempt == 0:
@@ -140,6 +145,22 @@ class Solver:
             self.build_sorting_rules()
             self.narrow_down_words()
             self.pick_a_word()
+
+
+    def change_message(self):
+        attempt = self.board.get_attempt()
+        if attempt == 0:
+            self.text = "One strategy suggests to pick the first"
+            self.text_2 = "word that has the most vowels."
+        elif attempt == 1:
+            self.text = "The second pick should not contain"
+            self.text_2 = "letters used in the first try."
+        else:
+            self.text = "For 3rd attempt and further, computer"
+            self.text_2 = "actually analizes information received"
+            self.text_3 = "from previous tries and gives you a word"
+            self.text_4 = "that fits those criteria."
+        pass
 
 
     def draw_hint(self, game_window):
@@ -181,44 +202,25 @@ class Solver:
                     indent = 10
                 game_window.blit(txt_surface, (next_tile_x+indent, next_tile_y))
 
-        
-        if attempt:
+
+        if self.hinted_alternative_word:
             alt_hint_text = "You may also try: " + self.hinted_alternative_word
             txt_strategy = strategy_font.render(alt_hint_text, True, GREY)
             game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+83))
-
-        text = ""
-        text_2 = ""
-        text_3 = ""
-        text_4 = ""
-        if self.hinted_word:
-            if attempt == 0:
-                text = "One strategy suggests to pick the first"
-                text_2 = "word that has the most vowels."
-            elif attempt == 1:
-                text = "The second pick should contain letters"
-                text_2 = "used in the first try."
-            else:
-                text = "For 3rd attempt and further, computer"
-                text_2 = "actually analizes information received"
-                text_3 = "from previous tries and gives you a word"
-                text_4 = "that fits those criteria."
         
-        
-        txt_strategy = strategy_font.render(text, True, GREY)
-        game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+110))
-        if text_2:
-            txt_strategy = strategy_font.render(text_2, True, GREY)
+        if self.text:
+            txt_strategy = strategy_font.render(self.text, True, GREY)
+            game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+110))
+        if self.text_2:
+            txt_strategy = strategy_font.render(self.text_2, True, GREY)
             game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+126))
-        if text_3:
-            txt_strategy = strategy_font.render(text_3, True, GREY)
+        if self.text_3:
+            txt_strategy = strategy_font.render(self.text_3, True, GREY)
             game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+142))
-        if text_4:
-            txt_strategy = strategy_font.render(text_4, True, GREY)
+        if self.text_4:
+            txt_strategy = strategy_font.render(self.text_4, True, GREY)
             game_window.blit(txt_strategy, (SOLVER_X+10, SOLVER_Y+158))
     
-        
-
 
 
 

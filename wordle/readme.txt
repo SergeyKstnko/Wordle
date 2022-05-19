@@ -15,16 +15,15 @@ Tech functionality:
 * GUI via pygame
 * Developed game itself and its Solver
 * Regular Expressions
-
+* Shows message when "Word not in list" and "Not enough letters"
+* Fonts work on different opearation systems
 
 To implement (in the order of importance and interest):
-* Discover resolution of the screen
-* If word is not in the dictionary
-* Add GUI for Suggestions/Hints
+* Correct GUI for Suggestions/Hints
+* Use better dictionaries
 * Suggest second guess opposite of the first one
 * Update documentation
 * Deal with repeated letters
-* Use better dictionaries
 * Potentially connecting to API of a dictionary
 to get definitions
 * Add GUI for definitions

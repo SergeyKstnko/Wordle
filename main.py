@@ -13,7 +13,7 @@ if os.name == 'nt':
 
 import pygame
 
-from wordle.constants import HEIGHT, SQUARES_X, SQUARES_Y, WHITE, WIDTH, BLACK, MIDDLE
+from wordle.constants import HEIGHT, SQUARES_X, SQUARES_Y, WHITE, WIDTH, BLACK, MIDDLE, GREY
 from wordle.board import Board
 from wordle.solver import Solver
 
@@ -51,16 +51,17 @@ def main():
                     board.enter_word()
                 elif event.key == pygame.K_SPACE:
                     solver.make_suggestion()
-
+                    solver.change_message()
 
 
         game_window.fill(WHITE)
         
-        #HEADER
+        #HEADER WORDLE
         font_wordle = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 50)
         txt_surface = font_wordle.render("Wordle", True, BLACK) 
         game_window.blit(txt_surface, (MIDDLE-90, 0))
-        pygame.draw.line(game_window, BLACK, (0,65), (WIDTH,65), width=2)
+        pygame.draw.line(game_window, GREY, (0,65), (WIDTH,65), width=2)
+
 
         board.draw_squares(game_window)
         solver.draw_hint(game_window)
