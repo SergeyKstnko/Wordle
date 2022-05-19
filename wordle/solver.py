@@ -160,7 +160,6 @@ class Solver:
             self.text_2 = "actually analizes information received"
             self.text_3 = "from previous tries and gives you a word"
             self.text_4 = "that fits those criteria."
-        pass
 
 
     def draw_hint(self, game_window):
