@@ -23,7 +23,7 @@ FPS = 60
 
 pygame.init()
 
-game_window = pygame.display.set_mode((WIDTH, HEIGHT))
+game_window = pygame.display.set_mode((WIDTH, HEIGHT), pygame.SCALED)
 
 
 pygame.display.set_caption("Wordle")

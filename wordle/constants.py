@@ -1,7 +1,7 @@
 #here I will define constants in one place
 
 
-WIDTH, HEIGHT = 900, 1000
+WIDTH, HEIGHT = 1200, 1000
 ROWS, COLS = 6,5
 SQUARE_SIZE = 60
 
