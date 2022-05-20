@@ -1,16 +1,21 @@
 This game an implementation of the popular game Wordle.
 
 
-Tech xharacteristics:
-* Reproduced NYT Wordle functionality
-* Enchanced with game Solver and with definitions
-retreaved via online dictionary API
+Tech characteristics:
+* a Python3 implementation of Wordle that includes suggested
+guesses and word definitions retrieved via an API
 * Implemented game using OOP design principles (specifically 
 encapsulation principle)
+* API
+    * Call to a dictionary API to get definitions
+    * Displaying definitions
+    * Limiting number of calls to 1/1000ms at most
+    not to overload API
 * Easy extensibility
 * GUI via Pygame
 * Regular Expressions
 * Fonts work on different opearation systems
+
 
 Functionality (among others):
 * checks if word user is trying to input is legitimate
@@ -22,9 +27,6 @@ Functionality (among others):
 
 
 ToDO: (in the order of importance and interest):
-* Potentially connecting to API of a dictionary
-to get definitions
-* Add GUI for definitions
 * Use better dictionaries
 * Suggest second guess opposite of the first one
 * Update documentation

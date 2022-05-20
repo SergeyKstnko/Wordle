@@ -1,5 +1,7 @@
 pygame
 python3 '''https://ukdevguy.com/how-to-install-pygame-in-2019/'''
+requests '''for API calls'''
+PrettyPrinter '''for formatting API JSON responses'''
 
 #Libraries below are not used anymore
 #dictionary to check if words exist

@@ -26,7 +26,7 @@ pygame.init()
 game_window = pygame.display.set_mode((WIDTH, HEIGHT))
 #, pygame.SCALED
 
-pygame.display.set_caption("Wordle")
+pygame.display.set_caption("Wordle with suggested guesses and word definitions retrieved via an API")
 
 def main():
 
@@ -66,6 +66,7 @@ def main():
         board.draw_squares(game_window)
         solver.draw_hint(game_window)
         board.display_warning(game_window)
+        solver.draw_definitions(game_window)
 
 
         pygame.display.update()

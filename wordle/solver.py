@@ -22,7 +22,8 @@ TODO: * Pick second guess opposite of the first guess
 import pygame, random
 import re
 
-from .constants import BLACK, COLS, DICT_ADDRESS, GREEN, GREY, ROWS, SOLVER_X, SOLVER_Y, SQUARE_SIZE, YELLOW, WHITE
+from .constants import BLACK, BLUE, COLS, DICT_ADDRESS, GREEN, GREY, LIGHT_BLUE, ROWS, SOLVER_X, SOLVER_Y, SQUARE_SIZE, YELLOW, WHITE
+from .api import Api
 
 class Solver:
     def __init__(self, board):
@@ -44,6 +45,8 @@ class Solver:
         self.text_2 = ""
         self.text_3 = ""
         self.text_4 = ""
+
+        self.hint_definition = {}
         
 
     def get_list(self) -> str:
@@ -146,6 +149,9 @@ class Solver:
             self.narrow_down_words()
             self.pick_a_word()
 
+        def_api = Api(self.hinted_word)
+        self.hint_definition = def_api.get_word_info(self.hinted_word)
+
 
     def change_message(self):
         attempt = self.board.get_attempt()
@@ -160,6 +166,43 @@ class Solver:
             self.text_2 = "actually analizes information received"
             self.text_3 = "from previous tries and gives you a word"
             self.text_4 = "that fits those criteria."
+
+    def draw_definitions(self, game_window):
+        word_font = pygame.font.SysFont("fonts/NotoSans-ExtraBold.ttf", 40)
+        partOfSpeech_font = pygame.font.SysFont("fonts/NotoSans-ExtraBold.ttf", 22)
+        definitions_font = pygame.font.SysFont("fonts/NotoSans-ExtraBold.ttf", 22)
+        #if user asked for hint
+        indent_y = SOLVER_Y + 210
+
+        if self.hinted_word:
+            word = self.hint_definition['word']
+            partOfSpeech = self.hint_definition['partOfSpeech']
+            definitions = self.hint_definition['definitions']
+            
+            txt_word = word_font.render(word.lower(), True, BLACK)
+            game_window.blit(txt_word, (SOLVER_X, indent_y))
+
+            txt_partOfSpeech = partOfSpeech_font.render(partOfSpeech, True, LIGHT_BLUE)
+            game_window.blit(txt_partOfSpeech, (SOLVER_X+100, indent_y+10))
+
+
+            y_indent = indent_y+40
+            for definition in definitions:
+                while definition:
+                    end = 45
+                    while end < len(definition) and definition[end] != " ":
+                        end += 1
+                    if end == len(definition)-1:
+                        end += 1
+                    temp_text = definition[:end]
+                    txt_def = definitions_font.render(temp_text, True, GREY)
+                    game_window.blit(txt_def, (SOLVER_X, y_indent))
+                    y_indent += 20
+                    definition = definition[end:]
+                
+                y_indent += 3
+                
+
 
 
     def draw_hint(self, game_window):

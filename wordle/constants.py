@@ -19,6 +19,8 @@ BLACK = (0,0,0)
 GREY = (120,124,126)
 GREEN = (106,170,100)
 YELLOW = (201,180,88)
-
+BLUE = (28,49,59)
+DARK_BLUE = (15,34,41)
+LIGHT_BLUE = (15,58,89)
 
 DICT_ADDRESS = "dictionaries/answers.txt"
