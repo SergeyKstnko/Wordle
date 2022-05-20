@@ -1,7 +1,6 @@
-A Python3 implementation of Wordle that includes suggested guesses and word definitions retrieved via an API.
-
 ![Main screenshot](https://user-images.githubusercontent.com/7826894/169595360-abcecc8c-7085-4b00-b7ad-359c309cd693.png)
 
+**A Python3 implementation of Wordle that includes suggested guesses and word definitions retrieved via an API.**
 
 Tech characteristics:
 * Implemented game using OOP design principles (specifically 
