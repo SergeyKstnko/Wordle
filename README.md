@@ -15,6 +15,13 @@ encapsulation principle)
 * GUI via Pygame
 * Regular Expressions
 * Fonts work on different opearation systems
+* Game gives you hint based on strategy offered by NYT:
+   * For the first guess pick word with most vowels
+   * For the second guess pick word that has no letters
+   that were used in previous try
+   * For the 3rd and all consequtive guesses, pick words
+   based on the information you collected in all previous
+   tries.
 
 
 Functionality (among others): 
