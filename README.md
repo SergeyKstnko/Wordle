@@ -1,5 +1,7 @@
 This game an implementation of the popular game Wordle.
 
+![Screen Shot 2022-05-20 at 2 30 57 PM](https://user-images.githubusercontent.com/7826894/169595360-abcecc8c-7085-4b00-b7ad-359c309cd693.png)
+
 
 Tech characteristics:
 * a Python3 implementation of Wordle that includes suggested
