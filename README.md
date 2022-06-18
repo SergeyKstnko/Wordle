@@ -12,7 +12,6 @@ encapsulation principle)
     not to overload API
 * Easy extensibility
 * GUI via Pygame
-* Regular Expressions
 * Fonts work on different opearation systems
 * Game gives you hint based on strategy offered by NYT:
    * For the first guess pick word with most vowels
@@ -21,6 +20,8 @@ encapsulation principle)
    * For the 3rd and all consequtive guesses, pick words
    based on the information you collected in all previous
    tries.
+* Regular Expressions. Implemented at first but then eventually
+retired as more elegant solution was found.
 
 
 Functionality (among others): 
@@ -29,7 +30,7 @@ displayes corresponding message if not
 * Color coded letters
 * Highlight if word is correct
 * Picking new word each day
-* Suggesting a new word based on previous guesses
+* Suggesting a hint based on previous guesses
 * Shows message when "Word not in list" and "Not enough letters"
 
 
@@ -39,6 +40,7 @@ ToDO: (in the order of importance and interest):
 * Update documentation
 * Deal with some nuances of repeated letters
 * Add Keyboard
+* Improve strategy to suggest new hints
 * Letter W is a little off to the right for some reason
 
 ![Word not in list message](https://user-images.githubusercontent.com/7826894/169596343-01fd805f-92cd-4afd-a91f-6337433a70b8.png)
