@@ -12,12 +12,12 @@ encapsulation principle)
     not to overload API
 * Easy extensibility
 * GUI via Pygame
-* Fonts work on different opearation systems
+* Fonts work on different operation systems
 * Game gives you hint based on strategy offered by NYT:
    * For the first guess pick word with most vowels
    * For the second guess pick word that has no letters
    that were used in previous try
-   * For the 3rd and all consequtive guesses, pick words
+   * For the 3rd and all consecutive guesses, pick words
    based on the information you collected in all previous
    tries.
 * Regular Expressions. Implemented at first but then eventually
@@ -26,7 +26,7 @@ retired as more elegant solution was found.
 
 Functionality (among others): 
 * Checks if word user is trying to input is legitimate and
-displayes corresponding message if not
+displays corresponding message if not
 * Color coded letters
 * Highlight if word is correct
 * Picking new word each day
