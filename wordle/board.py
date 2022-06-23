@@ -1,6 +1,6 @@
 '''This class will handle "board" for Wordle.
 
-TODO: * Handling repeating letters
+TODO: * Handling coloring for repeating letters
 *Update dictionaries I use'''
 
 import pygame, random

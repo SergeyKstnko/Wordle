@@ -7,6 +7,7 @@ TODO: * Add Keyboard
 
 import ctypes, os
 
+#Potentially solves some issues with the fond that rarely but do appear on Windows machines.
 if os.name == 'nt':
     ctypes.windll.user32.SetProcessDPIAware()
 
@@ -24,7 +25,6 @@ FPS = 60
 pygame.init()
 
 game_window = pygame.display.set_mode((WIDTH, HEIGHT))
-#, pygame.SCALED
 
 pygame.display.set_caption("Wordle with suggested guesses and word definitions retrieved via an API")
 
@@ -56,7 +56,7 @@ def main():
 
         game_window.fill(WHITE)
         
-        #HEADER WORDLE
+        #WORDLE HEADER
         font_wordle = pygame.font.Font("fonts/NotoSans-ExtraBold.ttf", 50)
         txt_surface = font_wordle.render("Wordle", True, BLACK) 
         game_window.blit(txt_surface, (MIDDLE-90, 0))
